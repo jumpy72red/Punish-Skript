@@ -1,0 +1,105 @@
+#Punishment Skript by ImGnomed
+#I won't insist on it because most people will probably remove this text,
+#but I would appreciate credit if you use this on a server!
+#Youtube: https://www.youtube.com/channel/UCJWdHTCmVYwgaI6HcpGBs0Q
+
+
+variables:
+  {Bansuccess} = 0
+
+options:
+	tag: &5[&bTAG&5]
+
+command /ban <player> <text>:
+  usage: /ban <player> <reason>
+  permission: skript.punish
+  trigger:
+    if arg 2 = "Severe":
+      make console execute command "freeze %arg 1%"
+      message "<gray>You have been banned for a <red>severe <gray>offence!" to arg 1
+      {Bansuccess} = 1
+      wait 5 seconds
+      make console execute command "tempban %arg 1% 1mo <light red>Punishable Offence (<red>Severe<light red>)"
+    else if arg 2 = "Moderate":
+      make console execute command "freeze %arg 1%"
+      message "<gray>You have been banned for a <orange>moderate <gray>offence!" to arg 1
+      {Bansuccess} = 1
+      wait 5 seconds
+      make console execute command "tempban %arg 1% 1w <light red>Punishable Offence (<orange>Moderate<light red>)"
+    else if arg 2 = "Light":
+      make console execute command "freeze %arg 1%"
+      message "<gray>You have been banned for a <light green>light <gray>offence!" to arg 1
+      {Bansuccess} = 1
+      wait 5 seconds
+      make console execute command "tempban %arg 1% 24h <light red>Punishable Offence (<light green>Light<light red>)"
+    else:
+      message "<gray>Ban types: <light red>Severe, Moderate, Light<gray>. These count for <light red>all <gray>bans." to player
+    loop all players:
+      if {Bansuccess} = 1:
+        message "<light red>%arg 1% <gray>has been banned by <light red>%player% <gray>for a <light red>%arg 2% <gray>punishment!" to loop-player
+
+
+command /offlineban <offline player> <text>:
+  permission: skript.punish
+  trigger:
+    if arg 2 = "Severe":
+      make console execute command "tempban %arg 1% 1mo <light red>Punishable Offence (<red>Severe<light red>)"
+    else if arg 2 = "Moderate":
+      make console execute command "tempban %arg 1% 1w <light red>Punishable Offence (<orange>Moderate<light red>)"
+    else if arg 2 = "Light":
+      make console execute command "tempban %arg 1% 24h <light red>Punishable Offence (<light green>Light<light red>)"
+    else:
+      message "<gray>Ban types: <light red>Severe, Moderate, Light<gray>. These count for <light red>all <gray>bans." to player
+    loop all players:
+      message "<light red>%arg 1% <gray>has been banned by <light red>%player% <gray>for a <light red>%arg 2% <gray>punishment!" to loop-player
+
+
+command /kick <player>:
+  permission: skript.punish
+  trigger:
+    make console execute command "minecraft:kick %arg 1%"
+    message "<light red>%arg 1% has been kicked from the server!" to player
+    loop all players:
+      message "<light red>%arg 1% <gray>has been kicked from the server by <light red>%player%!" to loop-player
+
+
+command /mute <player>:
+  permission: skript.punish
+  trigger:
+    make console execute command "essentials:mute %arg 1%"
+    message "<light red>%arg 1% <gray>has been muted!" to player
+    loop all players:
+      message "<light red>%arg 1% <gray>has been muted by <light red>%player%!" to loop-player
+
+command /check <player>:
+  usage: /check <player>
+  permission: skript.punish
+  permission message: You are not a staff member!
+  trigger:
+    message "<purple>===== REPORTS =====" to player
+    message "<light red>%arg 1% <gray>has been reported <light red>%{report1.%arg 1%}% <gray>times" to player
+    message "<light red>%arg 1% <gray>has reported other users <light red>%{report2.%arg 1%}% <gray>times" to player
+
+command /report <player> <text>:
+  usage: /report <player> <reason>
+  trigger:
+    add 1 to {report1.%arg 1%}
+    add 1 to {report2.%player%}
+    send "&6Report sent to all staff online" to player
+    loop all players:
+      if loop-player have permission "skript.punish":
+        message "<purple>===== &5REPORT =====" to loop-player
+        message "<gray>Report from: <light green>%player%" to loop-player
+        message "<gray>Player reported: <light red>%arg 1%" to loop-player
+        message "<gray>Reason for Report: <light red>%arg 2%" to loop-player
+
+command /delreports <player>:
+  permission: skript.punish
+  permission message: You are not a staff member!
+  trigger:
+    message "<gray>All reports for <light red>%arg 1% <gray>have been removed!" to player
+    set {report1.%arg 1%} to 0
+    set {report2.%player%} to 0
+
+
+#End of Script
