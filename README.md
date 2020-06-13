@@ -4,7 +4,7 @@ Made By ImGnomed/TozerGamesYT
 Punishment Skript for Minecraft
 Permissions: skript.punish
 
-Commands: /ban <player> <reason>
+Commands: /ban (player) (reason)
 Reasons = Light, Moderate, Severe
 Light = 1d Ban
 Moderate = 1mo Ban
