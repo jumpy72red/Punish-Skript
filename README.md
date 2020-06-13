@@ -10,23 +10,23 @@ Light = 1d Ban
 Moderate = 1mo Ban
 Severe = Perm Ban
 
-/offlineban <player> <reason>
+/offlineban (player) (reason)
 Same as Ban except for offline players
 
-/kick <player>
+/kick (player)
 Kicks a player
 
-/Mute <player>
+/Mute (player)
 Mutes a player
 
-/check <player>
+/check (player)
 Checks how many reports a player has sent/received
 
-/report <player> <reason>
+/report (player) (reason)
 Reports a player for a reason (No permission needed)
 Reports to all players with skript.punish
 
-/delreports <player>
+/delreports (player)
 Removes all reports sent/received for a specific player.
 
 How to install?
